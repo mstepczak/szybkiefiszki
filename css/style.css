@@ -5,6 +5,8 @@ html, body {
     padding: 0;
     color: #333;
     font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 h1,h2,h3 {
@@ -14,6 +16,8 @@ h1,h2,h3 {
 h1 {
     font-size: 3.5em;
     text-align: center;
+    padding: 1em 0;
+    margin: 0;
 }
 
 h2 {
@@ -34,18 +38,40 @@ p {
     margin: auto;
 }
 
+.flip-wrapper {
+    position: relative;
+    height: 300px;
+}
+
 .flip-container {
     -webkit-perspective: 1000px;
     perspective: 1000px;
-    display: block;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    visibility: hidden;
     margin: auto;
     cursor: pointer;
-    margin-bottom: 45px;
+    transition: .5s;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    transform: translate(-50%)
+}
+
+.flip-container.active {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    top: 0px;
+    visibility: visible;
+    transition-delay: .2s;
 }
 
 .flip-container, .front, .back {
     width: 500px;
     height: 300px;
+    max-width: 100%;
 }
 
 .flipper {
@@ -75,8 +101,8 @@ p {
 }
 
 .flip-container.hover .flipper, .flip-container.flip .flipper {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
 }
 
 .flip__content {
@@ -108,4 +134,44 @@ p {
 .flip__content img {
     max-width: 50%;
     display: inline-block;
+}
+
+.flip-list {
+    width: 100%;
+    bottom: 30px;
+    position: absolute;
+    left: 0;
+    text-align: center;
+}
+
+.flip-list a, .flip-list span {
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 50px;
+    color: black;
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 1.3em;
+    border-radius: 50%;
+    font-weight: 300;
+}
+
+.flip-list span {
+    box-shadow: 0 0 0 1px black;
+    font-weight: 400;
+}
+
+@media screen and (max-width:1024px) {
+    body {
+        font-size: 12px;
+    }
+
+    .flip-list {
+        position: relative;
+        bottom: auto;
+        margin: 35px 0;
+    }
 }

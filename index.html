@@ -9,23 +9,75 @@
 <body>
     <div class="wrapper">
         <h1>Szybkie fiszki</h1>
-        
-        <div class="flip-container" onclick="this.classList.toggle('hover');">
-            <div class="flipper">
-                <div class="front">
-                    <div class="flip__content">
-                        <p>Gdzie urodził się Fryderyk&nbsp;Chopin?</p>
+        <div class="flip-wrapper">
+            <div class="flip-container active" data-id="1">
+                <div class="flipper">
+                    <div class="front">
+                        <div class="flip__content">
+                            <p>Gdzie urodził się<br/>Fryderyk Chopin?</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="flip__content">
+                            <p>Żelazowa Wola</p>
+                        </div>
                     </div>
                 </div>
-                <div class="back">
-                    <div class="flip__content">
-                        <p>Żelazowa Wola</p>
+            </div>
+            <div class="flip-container" data-id="2">
+                <div class="flipper">
+                    <div class="front">
+                        <div class="flip__content">
+                            <p>W który roku zmarł<br/>Ludwig van Beethoven?</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="flip__content">
+                            <p>1827r.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-container" data-id="3">
+                <div class="flipper">
+                    <div class="front">
+                        <div class="flip__content">
+                            <p>W którym roku urodził się<br/>Wolfgang Amadeus Mozart?</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="flip__content">
+                            <p>1756r.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-container" data-id="4">
+                <div class="flipper">
+                    <div class="front">
+                        <div class="flip__content">
+                            <p>Gdzie umarł Johannes Brahms?</p>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="flip__content">
+                            <p>W Wiedniu.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="flip-list">
+            <a href="/" class="prev">&lang;</a>
+            <span>1</span>
+            <a href="/" class="next">&rang;</a>
+        </div>
     </div>
 
-
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="js/scripts.js"></script>
 </body>
 </html>
