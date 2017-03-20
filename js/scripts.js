@@ -1,18 +1,50 @@
-$(function(){
-    var CURRENT_CART = 1,
-        CART_LENGTH = $('.flip-container').length;
-   $('.flip-container').click(function(){
-      $(this).toggleClass('hover');
-   });
+var app = angular.module('cartsApp', []);
+app.controller('cartsCtrl', function($scope) {
+    $scope.currentCart = 0;
+    $scope.loader = true;
+    $scope.carts = [
+            {
+                id: 0,
+                question: "Gdzie urodził się Fryderyk Chopin?",
+                answer: "Żelazowa Wola"
+            },
+            {
+                id: 1,
+                question: "W który roku zmarł Ludwig van Beethoven?",
+                answer: "1827r."
+            },
+            {
+                id: 2,
+                question: "W którym roku urodził się Wolfgang Amadeus Mozart?",
+                answer: "1756r."
+            },
+            {
+                id: 3,
+                question: "Gdzie umarł Johannes Brahms?",
+                answer: "W Wiedniu"
+            }
+    ];
     
-   $('.flip-list a').click(function(e){
-       e.preventDefault();
-       if($(this).hasClass('next'))
-           CURRENT_CART = (CURRENT_CART<CART_LENGTH)?CURRENT_CART+1:CURRENT_CART;
-       else
-           CURRENT_CART = (CURRENT_CART-1>0)?CURRENT_CART-1:CURRENT_CART;
-       $('.flip-list span').text(CURRENT_CART);
-       $('.flip-container.active').removeClass('active hover');
-       $('.flip-container[data-id='+CURRENT_CART+']').addClass('active');
-   }); 
+    $scope.carts[$scope.currentCart].active=true;
+    
+    $scope.toggleHover = function(index) {
+        if($scope.carts[index].hover) {
+            $scope.carts[index].hover = false;
+        } else {
+            $scope.carts[index].hover = true;
+        }
+    }
+    
+    $scope.changeCart = function(index) {
+        if(index >= 0 && index < $scope.carts.length) {
+            $scope.carts[$scope.currentCart].active=false;
+            $scope.currentCart = index;
+            $scope.carts[$scope.currentCart].active=true;
+            $scope.carts.forEach(function(item){
+               item.hover = false; 
+            });
+        }
+    }
+    
+    
 });

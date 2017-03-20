@@ -2,82 +2,54 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width;initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Szybkie fiszki</title>
     <link href="css/style.min.css" rel="stylesheet" />
+    
 </head>
-<body>
+<body ng-app="cartsApp"  ng-controller="cartsCtrl">
+    <div class="loader" ng-class="{hidden: loader}"></div>
     <div class="wrapper">
         <h1>Szybkie fiszki</h1>
-        <div class="flip-wrapper">
-            <div class="flip-container active" data-id="1">
+        <div class="flip-wrapper" >
+            <div class="flip-container" 
+               ng-repeat="cart in carts" 
+               data-id="{{cart.id}}" 
+               ng-class="{active: cart.active, hover: cart.hover} " 
+               ng-click="toggleHover($index)">
                 <div class="flipper">
                     <div class="front">
                         <div class="flip__content">
-                            <p>Gdzie urodził się<br/>Fryderyk Chopin?</p>
+                            <p>{{cart.question}}</p>
                         </div>
                     </div>
                     <div class="back">
                         <div class="flip__content">
-                            <p>Żelazowa Wola</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-container" data-id="2">
-                <div class="flipper">
-                    <div class="front">
-                        <div class="flip__content">
-                            <p>W który roku zmarł<br/>Ludwig van Beethoven?</p>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <div class="flip__content">
-                            <p>1827r.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-container" data-id="3">
-                <div class="flipper">
-                    <div class="front">
-                        <div class="flip__content">
-                            <p>W którym roku urodził się<br/>Wolfgang Amadeus Mozart?</p>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <div class="flip__content">
-                            <p>1756r.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-container" data-id="4">
-                <div class="flipper">
-                    <div class="front">
-                        <div class="flip__content">
-                            <p>Gdzie umarł Johannes Brahms?</p>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <div class="flip__content">
-                            <p>W Wiedniu.</p>
+                            <p>{{cart.answer}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="flip-list">
-            <a href="/" class="prev">&lang;</a>
-            <span>1</span>
-            <a href="/" class="next">&rang;</a>
+            <div class="nav">
+                <a class="prev" ng-click="changeCart(currentCart-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <span>{{currentCart+1}}</span>
+                <a class="next" ng-click="changeCart(currentCart+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="dots" >
+                <a 
+                    ng-repeat="cart in carts" 
+                    data-id={{cart.id}} 
+                    ng-class="{active: cart.active}"
+                    ng-click="changeCart($index)"
+                    ></a>
+            </div>
         </div>
     </div>
 
-    <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://use.fontawesome.com/32ec63541b.js"></script>
   <script src="js/scripts.js"></script>
 </body>
 </html>
