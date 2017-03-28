@@ -1,10 +1,17 @@
-var app = angular.module('cartsApp', []);
-app.controller('cartsCtrl', function($scope) {
-    $scope.currentCart = 0;
+var app = angular.module('cardsApp', []);
+
+app.service('localStorage', function() {
+    this.getCard = function (x) {
+        return x.toString(16);
+    }
+}); 
+
+app.controller('cardsCtrl', function($scope) {
+    $scope.currentCard = 0;
     $scope.loader = true;
     $scope.question = "";
     $scope.answer = "";
-    $scope.carts = [
+    $scope.cards = [
             {
                 question: "Gdzie urodził się Fryderyk Chopin?",
                 answer: "Żelazowa Wola"
@@ -23,13 +30,13 @@ app.controller('cartsCtrl', function($scope) {
             }
     ];
     
-    $scope.carts[$scope.currentCart].active=true;
+    $scope.cards[$scope.currentCard].active=true;
     
     $scope.toggleHover = function(index) {
-        if($scope.carts[index].hover) {
-            $scope.carts[index].hover = false;
+        if($scope.cards[index].hover) {
+            $scope.cards[index].hover = false;
         } else {
-            $scope.carts[index].hover = true;
+            $scope.cards[index].hover = true;
         }
     }
     
@@ -41,25 +48,25 @@ app.controller('cartsCtrl', function($scope) {
         }
     }
     
-    $scope.removeCart = function(index) {
-        if($scope.carts[index].active) {
-            $scope.changeCart(index+1);
-            $scope.changeCart(index-1);
+    $scope.removeCard = function(index) {
+        if($scope.cards[index].active) {
+            $scope.changeCard(index+1);
+            $scope.changeCard(index-1);
         }
-        if(index <= $scope.currentCart) $scope.currentCart--;
-        $scope.carts.splice(index, 1); 
+        if(index <= $scope.currentCard) $scope.currentCard--;
+        $scope.cards.splice(index, 1); 
         
     };
     
-    $scope.addCart = function(index) {
+    $scope.addCard = function(index) {
         if($scope.question != "" && $scope.answer != "") {
-            $scope.carts.push({
+            $scope.cards.push({
                 question: $scope.question,
                 answer: $scope.answer
             });
-            if($scope.carts.length==1){
-                $scope.carts[0].active=true;
-                $scope.currentCart = 0
+            if($scope.cards.length==1){
+                $scope.cards[0].active=true;
+                $scope.currentCard = 0
             }
             $scope.question = "";
             $scope.answer = "";
@@ -68,12 +75,12 @@ app.controller('cartsCtrl', function($scope) {
         }
     };
     
-    $scope.changeCart = function(index) {
-        if(index >= 0 && index < $scope.carts.length) {
-            $scope.carts[$scope.currentCart].active=false;
-            $scope.currentCart = index;
-            $scope.carts[$scope.currentCart].active=true;
-            $scope.carts.forEach(function(item){
+    $scope.changeCard = function(index) {
+        if(index >= 0 && index < $scope.cards.length) {
+            $scope.cards[$scope.currentCard].active=false;
+            $scope.currentCard = index;
+            $scope.cards[$scope.currentCard].active=true;
+            $scope.cards.forEach(function(item){
                item.hover = false; 
             });
         }

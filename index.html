@@ -10,7 +10,7 @@
 
 </head>
 
-<body ng-app="cartsApp" ng-controller="cartsCtrl">
+<body ng-app="cardsApp" ng-controller="cardsCtrl">
     <div class="loader" ng-class="{hidden: loader}"></div>
     <div class="hamburger" ng-click="toggleConfig()" ng-class="{open: config}">
       <span></span>
@@ -20,16 +20,16 @@
     <div class="panel wrapper" ng-class="{hidden: config}">
         <h1>Szybkie fiszki</h1>
         <div class="flip-wrapper">
-            <div class="flip-container" ng-repeat="cart in carts" ng-class="{active: cart.active, hover: cart.hover} " ng-click="toggleHover($index)">
+            <div class="flip-container" ng-repeat="card in cards" ng-class="{active: card.active, hover: card.hover} " ng-click="toggleHover($index)">
                 <div class="flipper">
                     <div class="front">
                         <div class="flip__content">
-                            <p>{{cart.question}}</p>
+                            <p>{{card.question}}</p>
                         </div>
                     </div>
                     <div class="back">
                         <div class="flip__content">
-                            <p>{{cart.answer}}</p>
+                            <p>{{card.answer}}</p>
                         </div>
                     </div>
                 </div>
@@ -37,12 +37,12 @@
         </div>
         <div class="flip-list">
             <div class="nav">
-                <a class="prev" ng-click="changeCart(currentCart-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                <span>{{currentCart+1}}</span>
-                <a class="next" ng-click="changeCart(currentCart+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                <a class="prev" ng-click="changeCard(currentCard-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <span>{{currentCard+1}}</span>
+                <a class="next" ng-click="changeCard(currentCard+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
             </div>
             <div class="dots">
-                <a ng-repeat="cart in carts" ng-class="{active: cart.active}" ng-click="changeCart($index)"></a>
+                <a ng-repeat="card in cards" ng-class="{active: card.active}" ng-click="changeCard($index)"></a>
             </div>
         </div>
     </div>
@@ -59,22 +59,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="cart in carts">
+                <tr ng-repeat="card in cards">
                     <td class="small">{{$index}}</td>
-                    <td><input ng-model="cart.question" /></td>
-                    <td><input ng-model="cart.answer" /></td>
+                    <td><input ng-model="card.question" /></td>
+                    <td><input ng-model="card.answer" /></td>
                     <td class="small">
-                        <a ng-click="removeCart($index)" class="danger">
+                        <a ng-click="removeCard($index)" class="danger">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
-                <tr class="new-cart">
-                    <td class="small">{{carts.length}}</td>
+                <tr class="new-card">
+                    <td class="small">{{cards.length}}</td>
                     <td><input ng-model="question" /></td>
                     <td><input ng-model="answer" /></td>
                     <td class="small">
-                        <a ng-click="addCart()" class="success">
+                        <a ng-click="addCard()" class="success">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </a>
                     </td>
