@@ -135,6 +135,20 @@ a[ng-click] {
     transition-delay: .5s;
 }
 
+.sync {
+    position: fixed;
+    bottom: 30px;
+    right: 45px;
+    z-index: 8;
+    font-size: 2.5em;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.sync:hover {
+    color: gray;
+}
+
 .panel {
     position: relative;
     min-height: 100%;
