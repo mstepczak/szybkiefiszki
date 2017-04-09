@@ -1,4 +1,21 @@
-var app = angular.module('cardsApp', []);
+var app = angular.module('cardsApp', ['ui.router', 'ngAnimate']);
+
+app.config(function($stateProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
+  $stateProvider.state({
+    name: 'default',
+    url: '',
+    templateUrl: 'panel.htm'
+  }).state({
+    name: 'list',
+    url: '/list',
+    templateUrl: 'list.htm'
+  }).state({
+    name: 'config',
+    url: '/config',
+    templateUrl: 'config.htm'
+  });
+});
 
 app.service('storage', function() {
     this.saveCards = function(cards) {
@@ -27,10 +44,12 @@ app.service('storage', function() {
     };
 }); 
 
-app.controller('cardsCtrl', function($scope, storage) {
+app.controller('cardsCtrl', function($scope, $timeout, storage) {
     $scope.loader = true;
     $scope.question = "";
     $scope.answer = "";
+    $scope.notiSuccess = false;
+    $scope.notiWarning = false;
     $scope.cards = storage.getCards();
 
     $scope.cards.forEach(function(item, index){
@@ -48,8 +67,8 @@ app.controller('cardsCtrl', function($scope, storage) {
         }
     }
     
-    $scope.toggleConfig = function(index) {
-        if($scope.config) {
+    $scope.setPage = function(page) {
+        if(page =='home') {
             $scope.config = false;
         } else {
             $scope.config = true;
@@ -79,7 +98,12 @@ app.controller('cardsCtrl', function($scope, storage) {
             $scope.question = "";
             $scope.answer = "";
         } else {
-            alert("Wprowadź pytanie i odpowiedź.");
+            if(!$scope.notiWarning) {
+                $scope.notiWarning = true;
+                $timeout(function(){
+                    $scope.notiWarning = false;
+                }, 3000);
+            }
         }
     };
     
@@ -95,8 +119,11 @@ app.controller('cardsCtrl', function($scope, storage) {
     }
     
     $scope.syncCards = function() {
-        if(storage.saveCards($scope.cards)) {
-            alert("zapisano aktualny stan fiszek");
+        if(storage.saveCards($scope.cards) && !$scope.notiSuccess) {
+            $scope.notiSuccess = true;
+            $timeout(function(){
+                $scope.notiSuccess = false;
+            }, 3000);
         }
     }
     
