@@ -85,11 +85,11 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
         
     };
     
-    $scope.addCard = function(index) {
-        if($scope.question != "" && $scope.answer != "") {
+    $scope.addCard = function(q,a) {
+        if(q != "" && a != "") {
             $scope.cards.push({
-                question: $scope.question,
-                answer: $scope.answer
+                question: q,
+                answer: a
             });
             if($scope.cards.length==1){
                 $scope.cards[0].active=true;
