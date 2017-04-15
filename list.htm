@@ -1,5 +1,5 @@
-<div class="config" >
-       <div class="wrapper config__inner">
+<div class="list" >
+       <div class="wrapper list__inner">
        
         <table>
             <thead>
@@ -11,22 +11,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="card in cards">
+                <tr ng-repeat="card in ctrl.cards">
                     <td class="small">{{$index}}</td>
                     <td><input ng-model="card.question" /></td>
                     <td><input ng-model="card.answer" /></td>
                     <td class="small">
-                        <a ng-click="removeCard($index)" class="danger">
+                        <a ng-click="ctrl.removeCard($index)" class="danger">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
                 <tr class="new-card">
-                    <td class="small">{{cards.length}}</td>
-                    <td><input ng-model="question" /></td>
-                    <td><input ng-model="answer" /></td>
+                    <td class="small">{{ctrl.cards.length}}</td>
+                    <td><input ng-model="ctrl.question" /></td>
+                    <td><input ng-model="ctrl.answer" /></td>
                     <td class="small">
-                        <a ng-click="addCard(question, answer)" class="success">
+                        <a ng-click="ctrl.addCard()" class="success">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </a>
                     </td>

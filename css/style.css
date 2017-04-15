@@ -64,17 +64,7 @@
     position: relative;
     display: block;
     text-align: center;
-    color: #929292;
     transition: color 0.4s;
-}
-
-.menu--viola .menu__link:hover,
-.menu--viola .menu__link:focus {
-    color: #333;
-}
-
-.menu--viola .menu__item--current .menu__link {
-    color: #d94f5c;
 }
 
 .menu--viola .menu__item:before,
@@ -83,7 +73,7 @@
 .menu--viola .menu__link:after {
     content: '';
     position: absolute;
-    background: #d94f5c;
+    background: black;
     transition: -webkit-transform 0.2s;
     transition: transform 0.2s;
     transition: transform 0.2s, -webkit-transform 0.2s;
@@ -201,6 +191,10 @@ p {
     font-size: 2.3em;
 }
 
+a {
+    color: black;
+}
+
 a[ng-click] {
     cursor: pointer;
 }
@@ -236,24 +230,10 @@ a[ng-click] {
     top: 0;
     left: 0;
     transition: .5s;
-    background: white url(../img/preloader.gif) center center no-repeat;
+    background: url(../img/preloader.gif) center center no-repeat;
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     transition-delay: .5s;
-}
-
-.sync {
-    position: fixed;
-    bottom: 30px;
-    right: 45px;
-    z-index: 8;
-    font-size: 2.5em;
-    transition: .5s;
-    cursor: pointer;
-}
-
-.sync:hover {
-    color: gray;
 }
 
 .panel {
@@ -400,16 +380,78 @@ a[ng-click] {
 }
 
 .flip-list .dots a {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     display: inline-block;
     margin: 0 1px;
     border-radius: 50%;
-    background: #aaa;
+    border: 1px solid black;
 }
 
 .flip-list .dots a.active {
-    background: #333;
+    background: black;
+}
+
+.list {
+    position: absolute;
+    top: 0;
+    transition: .5s;
+    width: 100%;
+}
+
+.list__inner {
+    padding: 30px 40px;
+    margin: 70px auto;
+    box-sizing: border-box;
+}
+
+.list table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.list tr {
+    border-bottom: 1px solid #aaa;
+}
+
+.list tr:hover td {
+    background: #000000;
+    background: rgba(0,0,0,.05);
+}
+
+.list tr:first-of-type td {
+    border-top: 10px solid transparent;
+}
+
+.list th,.list td {
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.list th {
+    padding-bottom: 15px;
+}
+
+.list th.small, .list td.small {
+    width: 20px;
+    text-align: center;
+}
+
+.list th {
+    border-bottom: 2px solid #777;
+}
+
+.list input {
+    width: 100%;
+    padding: 5px 0;
+    font-size: 1em;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
+.list .new-card input {
+    border-bottom: 1px solid #777;
 }
 
 .config {
@@ -420,58 +462,17 @@ a[ng-click] {
 }
 
 .config__inner {
-    background: white;
-    padding: 100px 40px 30px;
+    padding: 30px 40px;
+    margin: 70px auto 0;
     box-sizing: border-box;
-    margin: 10px auto;
 }
 
-.config table {
-    width: 100%;
-    border-spacing: 0;
-}
-
-.config tr {
-    border-bottom: 1px solid #aaa;
-}
-
-.config tr:hover td {
-    background: #f9f9f9;
-}
-
-.config tr:first-of-type td {
-    border-top: 10px solid white;
-}
-
-.config th,.config td {
-    padding: 10px 15px;
-    text-align: left;
-}
-
-.config th {
-    padding-bottom: 15px;
-}
-
-.config th.small, .config td.small {
-    width: 20px;
-    text-align: center;
-}
-
-.config th {
-    border-bottom: 2px solid #777;
+.config label {
+    display: block;
 }
 
 .config input {
-    width: 100%;
-    padding: 5px 0;
-    font-size: 1em;
-    outline: none;
-    border: 0;
-    background: transparent;
-}
-
-.config .new-card input {
-    border-bottom: 1px solid #777;
+    margin: 5px 0 15px;
 }
 
 .noti {
