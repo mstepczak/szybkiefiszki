@@ -212,6 +212,11 @@ a[ng-click] {
     font-size: 0.8em;
 }
 
+.primary {
+    color: #334499;
+    border-color: #334499;
+}
+
 .danger {
     color: #cc0000;
     border-color: #cc0000;
@@ -335,11 +340,12 @@ a[ng-click] {
     background: white center center no-repeat;
     background-size: cover;
     text-align: center;
+    text-shadow: -4px 0 6px white, 0 4px 6px white, 4px 0 6px white, 0 -4px 6px white;
 }
 
 .flip__content p.white {
     color: white;
-    text-shadow: 0 0 6px black;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .flip__content img {
@@ -416,7 +422,7 @@ a[ng-click] {
 
 .list tr:hover td {
     background: #000000;
-    background: rgba(0,0,0,.05);
+    background: rgba(0,0,0,.02);
 }
 
 .list tr:first-of-type td {
@@ -437,6 +443,10 @@ a[ng-click] {
     text-align: center;
 }
 
+.list th.medium, .list td.medium {
+    width: 90px;
+}
+
 .list th {
     border-bottom: 2px solid #777;
 }
@@ -452,6 +462,26 @@ a[ng-click] {
 
 .list .new-card input {
     border-bottom: 1px solid #777;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.image__label, .image__overview {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.image__overview {
+    width: 70px;
+    height: 50px;
+    background: url(../img/nophoto.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.image--important {
+    background-image: url(../img/nophoto.jpg)!important;
 }
 
 .config {

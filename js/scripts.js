@@ -44,9 +44,29 @@ app.service('storage', function() {
     };
 }); 
 
+app.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);
+
 app.controller('cardsCtrl', function($scope, $timeout, storage) {
     var vm = this;
     vm.loader = true;
+    vm.image = null;
     vm.question = "";
     vm.answer = "";
     vm.notiSuccess = false;
@@ -89,6 +109,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
     vm.addCard = function() {
         if(vm.question != "" && vm.answer != "") {
             vm.cards.push({
+                image: vm.image,
                 question: vm.question,
                 answer: vm.answer
             });
@@ -96,6 +117,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
                 vm.cards[0].active=true;
                 vm.currentCard = 0
             }
+            vm.image = null;
             vm.question = "";
             vm.answer = "";
         } else {

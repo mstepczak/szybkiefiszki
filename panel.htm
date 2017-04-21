@@ -3,7 +3,7 @@
             <div class="flip-container" ng-repeat="card in ctrl.cards" ng-class="{active: card.active, hover: card.hover} " ng-click="ctrl.toggleHover($index)">
                 <div class="flipper">
                     <div class="front">
-                        <div class="flip__content" ng-style="{background: ctrl.cardBackground, color: ctrl.cardColor}">
+                        <div class="flip__content" ng-style="{'background-image': 'url('+card.image+')'}">
                             <p>{{card.question}}</p>
                         </div>
                     </div>
