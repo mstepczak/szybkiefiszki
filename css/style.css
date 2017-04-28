@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,900');
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,900');*/
 /* Common styles for all menus */
 .menu {
     line-height: 1;
@@ -135,6 +135,63 @@
     transition-duration: 0.4s;
 }
 
+.loader {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: .5s;
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    transition-delay: .5s;
+    background: #2d2e30;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    background-color: #5c5f61;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px -20px 0 0;
+    -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+    animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+    0% {
+        -webkit-transform: perspective(120px)
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateY(180deg)
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg)
+    }
+}
+
+@keyframes sk-rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    }
+
+    50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    }
+
+    100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}
+
 ui-view.ng-enter, ui-view.ng-leave {
     transition: .5s;
 }
@@ -166,6 +223,10 @@ html, body {
     font-family: 'Roboto', sans-serif;
     width: 100%;
     height: 100%;
+}
+
+body {
+    overflow-y: scroll;
 }
 
 h1,h2,h3 {
@@ -206,39 +267,29 @@ a[ng-click] {
 }
 
 .btn {
-    padding: 3px 5px;
+    color: white!important;
+    padding: 4px 6px;
     display: inline-block;
-    border: 1px solid black;
-    font-size: 0.8em;
 }
 
 .primary {
-    color: #334499;
-    border-color: #334499;
+    background: #7aa2be;
+    border-color: #7aa2be;
 }
 
 .danger {
-    color: #cc0000;
-    border-color: #cc0000;
+    background: #cc6650;
+    border-color: #cc6650;
 }
 
 .success {
-    color: #00aa00;
-    border-color: #00aa00;
+    background: #80ae68;
+    border-color: #80ae68;
 }
 
-.loader {
-    width: 100%;
-    height: 100%;
-    z-index: 9;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: .5s;
-    background: url(../img/preloader.gif) center center no-repeat;
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    transition-delay: .5s;
+.warning {
+    background: #f0bb5c;
+    border-color: #f0bb5c;
 }
 
 .panel {
@@ -323,11 +374,11 @@ a[ng-click] {
 }
 
 .flip__content {
-    border-radius: 20px;
     border: 1px solid black;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    padding: 20px;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -340,12 +391,6 @@ a[ng-click] {
     background: white center center no-repeat;
     background-size: cover;
     text-align: center;
-    text-shadow: -4px 0 6px white, 0 4px 6px white, 4px 0 6px white, 0 -4px 6px white;
-}
-
-.flip__content p.white {
-    color: white;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .flip__content img {
@@ -365,19 +410,17 @@ a[ng-click] {
     width: 50px;
     height: 50px;
     text-decoration: none;
-    border: 1px solid black;
     text-align: center;
     line-height: 50px;
     color: black;
     display: inline-block;
     margin: 0 5px;
     font-size: 1.3em;
-    border-radius: 50%;
     font-weight: 300;
+    border: 2px solid white;
 }
 
 .flip-list .nav span {
-    box-shadow: 0 0 0 1px black;
     font-weight: 400;
 }
 
@@ -390,8 +433,6 @@ a[ng-click] {
     height: 8px;
     display: inline-block;
     margin: 0 1px;
-    border-radius: 50%;
-    border: 1px solid black;
 }
 
 .flip-list .dots a.active {
@@ -409,6 +450,7 @@ a[ng-click] {
     padding: 30px 40px;
     margin: 70px auto;
     box-sizing: border-box;
+    position: relative;
 }
 
 .list table {
@@ -444,7 +486,7 @@ a[ng-click] {
 }
 
 .list th.medium, .list td.medium {
-    width: 90px;
+    width: 100px;
 }
 
 .list th {
@@ -464,6 +506,12 @@ a[ng-click] {
     border-bottom: 1px solid #777;
 }
 
+.back-history {
+    position: absolute;
+    top: 36px;
+    right: 0;
+}
+
 input[type=file] {
     display: none;
 }
@@ -471,6 +519,13 @@ input[type=file] {
 .image__label, .image__overview {
     display: inline-block;
     vertical-align: middle;
+    float: left;
+}
+
+.image__label, .image__remove {
+    line-height: 50px;
+    padding: 0 6px;
+    cursor: pointer;
 }
 
 .image__overview {
@@ -489,6 +544,7 @@ input[type=file] {
     top: 0;
     transition: .5s;
     width: 100%;
+    text-align: center;
 }
 
 .config__inner {
@@ -516,16 +572,6 @@ input[type=file] {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
-.noti--success {
-    background: #55aa66;
-    color: white;
-}
-
-.noti--warning {
-    background: #aa9933;
-    color: white;
-}
-
 .noti--active {
     bottom: 20px;
     opacity: 1;
@@ -547,4 +593,44 @@ input[type=file] {
     table, tr, td, tbody {
         display: block;
     }
+}
+
+.dark-theme {
+    background: #2d2e30;
+}
+
+.dark-theme .flip__content {
+    background-color: #3c3f41;
+    border: 0;
+    color: white;
+    border-radius: 0;
+}
+
+.dark-theme, .dark-theme .menu--viola span, .dark-theme a, .dark-theme input, .dark-theme .flip-list .nav a, .dark-theme .flip-list span, .dark-theme .menu__item--current {
+    color: white;
+}
+
+.dark-theme .flip-list .nav a, .dark-theme .flip-list span {
+    border-color: #7aa2be;
+}
+
+.dark-theme .list th, .dark-theme .list .new-card input {
+    border-color: #969892;
+    color: #969892;
+}
+
+.dark-theme .menu--viola .menu__item:before,
+        .dark-theme .menu--viola .menu__item:after,
+        .dark-theme .menu--viola .menu__link:before,
+        .dark-theme .menu--viola .menu__link:after,
+        .dark-theme .flip-list .dots a {
+    background: #7aa2be;
+}
+
+.dark-theme .flip-list .dots a.active {
+    background: #0270b9;
+}
+
+.dark-theme .image--important {
+    background-image: url(../img/nophoto-dark.jpg)!important;
 }

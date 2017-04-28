@@ -1,7 +1,8 @@
 var app = angular.module('cardsApp', ['ui.router', 'ngAnimate']);
 
-app.config(function($stateProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
+app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+    $locationProvider.hashPrefix('')
+    $urlRouterProvider.otherwise('/');
   $stateProvider.state({
     name: 'default',
     url: '/',
@@ -10,11 +11,12 @@ app.config(function($stateProvider, $locationProvider) {
     name: 'list',
     url: '/list',
     templateUrl: 'list.htm'
-  }).state({
-    name: 'config',
-    url: '/config',
-    templateUrl: 'config.htm'
   });
+//  .state({
+//    name: 'config',
+//    url: '/config',
+//    templateUrl: 'config.htm'
+//  });
 });
 
 app.service('storage', function() {
@@ -69,30 +71,35 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
     vm.image = null;
     vm.question = "";
     vm.answer = "";
+    vm.history = [];
     vm.notiSuccess = false;
     vm.notiWarning = false;
     vm.cards = storage.getCards();
 
+    vm.saveHistory = function() {
+        vm.history.push(JSON.stringify(vm.cards));
+    };
+    
+    vm.backHistory = function(){
+        if(vm.history.length > 0) {
+            vm.cards = JSON.parse(vm.history[vm.history.length-2]);
+            vm.history.splice(-1);
+        }
+    };
+    
     vm.cards.forEach(function(item, index){
         item.hover = false;
         if(item.active == true) {
             vm.currentCard = index;        
         } 
     });
+    vm.saveHistory();  
     
     vm.toggleHover = function(index) {
         if(vm.cards[index].hover) {
             vm.cards[index].hover = false;
         } else {
             vm.cards[index].hover = true;
-        }
-    }
-    
-    vm.setPage = function(page) {
-        if(page =='home') {
-            vm.config = false;
-        } else {
-            vm.config = true;
         }
     }
     
@@ -104,7 +111,9 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
         if(index <= vm.currentCard) vm.currentCard--;
         vm.cards.splice(index, 1); 
         
+        vm.saveHistory();
     };
+    
     
     vm.addCard = function() {
         if(vm.question != "" && vm.answer != "") {
@@ -120,6 +129,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
             vm.image = null;
             vm.question = "";
             vm.answer = "";
+    vm.saveHistory();
         } else {
             if(!vm.notiWarning) {
                 vm.notiWarning = true;
@@ -149,5 +159,4 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
             }, 3000);
         }
     }
-    
 });
