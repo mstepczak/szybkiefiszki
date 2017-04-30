@@ -522,10 +522,15 @@ input[type=file] {
     float: left;
 }
 
-.image__label, .image__remove {
+.image__label {
     line-height: 50px;
     padding: 0 6px;
     cursor: pointer;
+}
+
+.image__options a {
+    line-height: 25px;
+    padding: 0 6px;
 }
 
 .image__overview {
@@ -537,6 +542,23 @@ input[type=file] {
 
 .image--important {
     background-image: url(../img/nophoto.jpg)!important;
+}
+
+.image__text {
+    display: none;
+}
+
+.image__textlabel {
+    padding: 0 5px;
+    line-height: 25px;
+    cursor: pointer;
+    color: #f6f6f6;
+    background: #242424;
+}
+
+.image__textlabel.white {
+    background: #afafaf;
+    color: #191919!important;
 }
 
 .config {
@@ -604,6 +626,17 @@ input[type=file] {
     border: 0;
     color: white;
     border-radius: 0;
+    font-weight: 400;
+}
+
+.dark-theme .flip__content.image {
+    color: black;
+    text-shadow: 0 -1px 2px white, 0 1px 2px white;
+}
+
+.dark-theme .flip__content.image.white {
+    color: white;
+    text-shadow: 0 -1px 2px black, 0 1px 2px black;
 }
 
 .dark-theme, .dark-theme .menu--viola span, .dark-theme a, .dark-theme input, .dark-theme .flip-list .nav a, .dark-theme .flip-list span, .dark-theme .menu__item--current {

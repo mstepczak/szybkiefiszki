@@ -24,9 +24,15 @@
                             <i class="fa fa-upload" aria-hidden="true"></i>
                         </label>
                         
-                        <a class="image__remove btn danger" ng-show="card.image != undefined" ng-click="card.image=null">
-                            <i class="fa fa-remove" aria-hidden="true"></i>
-                        </a>
+                        
+                        <div class="image__options" ng-show="card.image != undefined">
+                            <input type="checkbox" ng-model="card.imageText" id="imagetext{{$index}}" class="image__text"/>
+                            <label class="image__textlabel btn" ng-class="{white: card.imageText}" for="imagetext{{$index}}">
+                                <i class="fa fa-font" aria-hidden="true"></i>
+                            </label>
+                            <a class="btn danger" ng-click="card.image=null"><i class="fa fa-remove" aria-hidden="true"></i></a>
+                            
+                        </div>
                     </td>
                     <td>
                         <input ng-model="card.question" />
@@ -50,9 +56,10 @@
                             <i class="fa fa-upload" aria-hidden="true"></i>
                         </label>
                         
-                        <a class="image__remove btn danger" ng-show="ctrl.image != undefined" ng-click="ctrl.image=null">
-                            <i class="fa fa-remove" aria-hidden="true"></i>
-                        </a>
+                        <div class="image__options" ng-show="ctrl.image != undefined">
+                            <a class="btn danger" ng-click="ctrl.image=null"><i class="fa fa-remove" aria-hidden="true"></i></a>
+                            <a class="btn white" ng-click=""><i class="fa fa-font" aria-hidden="true"></i></a>
+                        </div>
                     </td>
                     <td><input ng-model="ctrl.question" /></td>
                     <td><input ng-model="ctrl.answer" /></td>
