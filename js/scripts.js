@@ -11,6 +11,10 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     name: 'list',
     url: '/list',
     templateUrl: 'list.htm'
+  }).state({
+    name: 'test',
+    url: '/test',
+    templateUrl: 'test.htm'
   });
 //  .state({
 //    name: 'config',
@@ -69,6 +73,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
     var vm = this;
     vm.loader = true;
     vm.image = null;
+    vm.imageText = null;
     vm.question = "";
     vm.answer = "";
     vm.history = [];
@@ -119,6 +124,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
         if(vm.question != "" && vm.answer != "") {
             vm.cards.push({
                 image: vm.image,
+                imageText: vm.imateText,
                 question: vm.question,
                 answer: vm.answer
             });
@@ -127,9 +133,10 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
                 vm.currentCard = 0
             }
             vm.image = null;
+            vm.imageText = null;
             vm.question = "";
             vm.answer = "";
-    vm.saveHistory();
+            vm.saveHistory();
         } else {
             if(!vm.notiWarning) {
                 vm.notiWarning = true;
@@ -140,7 +147,22 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
         }
     };
     
-    vm.changeCard = function(index) {
+    vm.changeCard = function(index, success) {
+        if(success == true) {
+            vm.cards[vm.currentCard].success = true;
+        } else if(success == false){
+            vm.cards[vm.currentCard].success = false;
+        }
+        if(index == vm.cards.length && success != undefined) {
+            var count = 0, countSuccess = 0;
+            vm.cards.forEach(function(item){
+                if(item.success == true) {
+                    countSuccess++;
+                } 
+                count++;
+            });
+            alert("Wynik: "+countSuccess + "/" + count);
+        }
         if(index >= 0 && index < vm.cards.length) {
             vm.cards[vm.currentCard].active=false;
             vm.currentCard = index;

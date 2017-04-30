@@ -273,23 +273,23 @@ a[ng-click] {
 }
 
 .primary {
-    background: #7aa2be;
-    border-color: #7aa2be;
+    background: #7aa2be!important;
+    border-color: #7aa2be!important;
 }
 
 .danger {
-    background: #cc6650;
-    border-color: #cc6650;
+    background: #cc6650!important;
+    border-color: #cc6650!important;
 }
 
 .success {
-    background: #80ae68;
-    border-color: #80ae68;
+    background: #80ae68!important;
+    border-color: #80ae68!important;
 }
 
 .warning {
-    background: #f0bb5c;
-    border-color: #f0bb5c;
+    background: #f0bb5c!important;
+    border-color: #f0bb5c!important;
 }
 
 .panel {
@@ -661,7 +661,7 @@ input[type=file] {
 }
 
 .dark-theme .flip-list .dots a.active {
-    background: #0270b9;
+    background: #0270b9!important;
 }
 
 .dark-theme .image--important {

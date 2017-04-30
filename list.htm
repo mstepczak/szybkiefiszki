@@ -47,19 +47,7 @@
                 <tr class="new-card">
                     <td class="small">{{ctrl.cards.length}}</td>
                     <td class="medium image">
-                        <div class="image__overview" 
-                            ng-style="{'background-image': 'url('+ctrl.image+')'}"
-                            ng-class="{'image--important': ctrl.image == undefined}"
-                                ></div>
-                        <input type="file" fileread="ctrl.image" id="file{{$index}}"/>
-                        <label class="image__label btn primary" for="file{{$index}}" ng-show="ctrl.image == undefined">
-                            <i class="fa fa-upload" aria-hidden="true"></i>
-                        </label>
                         
-                        <div class="image__options" ng-show="ctrl.image != undefined">
-                            <a class="btn danger" ng-click="ctrl.image=null"><i class="fa fa-remove" aria-hidden="true"></i></a>
-                            <a class="btn white" ng-click=""><i class="fa fa-font" aria-hidden="true"></i></a>
-                        </div>
                     </td>
                     <td><input ng-model="ctrl.question" /></td>
                     <td><input ng-model="ctrl.answer" /></td>
