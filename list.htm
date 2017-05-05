@@ -12,8 +12,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="card in ctrl.cards">
-                    <td class="small">{{$index}}</td>
+                <tr  ng-repeat="card in ctrl.cards">
+                    <td class="small">{{$index+1}}</td>
                     <td class="medium image">
                         <div class="image__overview" 
                             ng-style="{'background-image': 'url('+card.image+')'}"
@@ -45,7 +45,7 @@
                     </td>
                 </tr>
                 <tr class="new-card">
-                    <td class="small">{{ctrl.cards.length}}</td>
+                    <td class="small"></td>
                     <td class="medium image">
                         
                     </td>

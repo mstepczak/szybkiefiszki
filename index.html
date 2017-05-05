@@ -31,13 +31,11 @@
                     Zarządzaj
                 </a>
             </li>
-<!--
             <li class="menu__item" ui-sref-active="menu__item--current">
-                <a ui-sref="test" class="menu__link" >
+                <a ui-sref="test" class="menu__link" ng-click="ctrl.startTest()">
                     Testuj
                 </a>
             </li>
--->
             <li class="menu__item">
                 <a class="menu__link" ng-click="ctrl.syncCards()">
                     Zapisz
@@ -48,10 +46,9 @@
     
     <ui-view></ui-view>
     
-    <div class="noti success" ng-class="{'noti--active': ctrl.notiSuccess}">Zapisano aktualny stan fiszek!</div>
-    <div class="noti warning" ng-class="{'noti--active': ctrl.notiWarning}">Wprowadź pytanie i odpowiedź!</div>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-ui-router.min.js"></script>
+    <script src="js/angular-ui-notification.js"></script>
     <script src="js/angular-animate.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>

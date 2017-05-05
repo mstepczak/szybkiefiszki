@@ -1,6 +1,17 @@
-var app = angular.module('cardsApp', ['ui.router', 'ngAnimate']);
+var app = angular.module('cardsApp', ['ui.router', 'ngAnimate', 'ui-notification']);
 
-app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $locationProvider, $urlRouterProvider, NotificationProvider) {
+    
+    NotificationProvider.setOptions({
+            delay: 3000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'bottom'
+    });
+    
     $locationProvider.hashPrefix('')
     $urlRouterProvider.otherwise('/');
   $stateProvider.state({
@@ -34,7 +45,7 @@ app.service('storage', function() {
     };
     
     this.getCards = function() {
-        var result = "", cards = []; 
+        var result = "", cards = [], newItem, firstItem = true; 
         result = localStorage.getItem('fastCards');
         
         if(result == "" || result == null) {
@@ -43,12 +54,42 @@ app.service('storage', function() {
             
         result = result.split('|');
         result.forEach(function(item){
-            cards.push(JSON.parse(item));
+            newItem = JSON.parse(item);
+            if(firstItem) {
+                newItem.active = true;
+                firstItem = false;
+            } else {
+                newItem.active = false;
+            }
+            newItem.hover = false;
+            newItem.success = undefined;
+            cards.push(newItem);
         });
         
         return cards;
     };
 }); 
+
+app.service('helpers', function() {
+   this.shuffle = function(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    } 
+});
 
 app.directive("fileread", [function () {
     return {
@@ -69,7 +110,7 @@ app.directive("fileread", [function () {
     }
 }]);
 
-app.controller('cardsCtrl', function($scope, $timeout, storage) {
+app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notification) {
     var vm = this;
     vm.loader = true;
     vm.image = null;
@@ -77,9 +118,9 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
     vm.question = "";
     vm.answer = "";
     vm.history = [];
-    vm.notiSuccess = false;
-    vm.notiWarning = false;
     vm.cards = storage.getCards();
+    vm.cardsTest = vm.cards;
+    vm.currentCard = 0;
 
     vm.saveHistory = function() {
         vm.history.push(JSON.stringify(vm.cards));
@@ -91,13 +132,6 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
             vm.history.splice(-1);
         }
     };
-    
-    vm.cards.forEach(function(item, index){
-        item.hover = false;
-        if(item.active == true) {
-            vm.currentCard = index;        
-        } 
-    });
     vm.saveHistory();  
     
     vm.toggleHover = function(index) {
@@ -106,7 +140,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
         } else {
             vm.cards[index].hover = true;
         }
-    }
+    };
     
     vm.removeCard = function(index) {
         if(vm.cards[index].active) {
@@ -138,12 +172,7 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
             vm.answer = "";
             vm.saveHistory();
         } else {
-            if(!vm.notiWarning) {
-                vm.notiWarning = true;
-                $timeout(function(){
-                    vm.notiWarning = false;
-                }, 3000);
-            }
+            Notification.warning('Wprowadź pytanie i odpowiedź!');
         }
     };
     
@@ -160,8 +189,13 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
                     countSuccess++;
                 } 
                 count++;
+                item.success = undefined;
             });
-            alert("Wynik: "+countSuccess + "/" + count);
+            vm.currentCard = 0;
+            vm.cards[vm.cards.length-1].active = false;
+            vm.cards[0].active = true;
+            
+            Notification.primary("Twój wynik to: " + countSuccess+"/"+ count);
         }
         if(index >= 0 && index < vm.cards.length) {
             vm.cards[vm.currentCard].active=false;
@@ -171,14 +205,16 @@ app.controller('cardsCtrl', function($scope, $timeout, storage) {
                item.hover = false; 
             });
         }
-    }
+    };
     
     vm.syncCards = function() {
         if(storage.saveCards(vm.cards) && !vm.notiSuccess) {
-            vm.notiSuccess = true;
-            $timeout(function(){
-                vm.notiSuccess = false;
-            }, 3000);
+            
+            Notification.success("Zapisano aktualny stan fiszek!");
         }
-    }
+    };
+    
+    vm.startTest = function(){
+        vm.changeCard(0);
+    };
 });
