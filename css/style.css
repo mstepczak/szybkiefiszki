@@ -493,6 +493,16 @@ a[ng-click] {
     font-weight: 400;
 }
 
+.flip-list .nav .start {
+    position: absolute;
+    left: 50%;
+    width: 250px;
+    text-align: center;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .flip-list .dots {
     margin-top: 10px;
 }
@@ -506,6 +516,12 @@ a[ng-click] {
 
 .flip-list .dots a.active {
     background: black;
+}
+
+.clock {
+    position: absolute;
+    top: 36px;
+    right: 30px;
 }
 
 .list {

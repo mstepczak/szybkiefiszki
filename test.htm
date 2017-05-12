@@ -1,4 +1,5 @@
-<div class="panel wrapper"> 
+<div class="panel wrapper">
+    <div class="clock" ng-show="ctrl.clock.start != 0">{{ ctrl.clock.current - 3600000 - ctrl.clock.start | date:'HH:mm:ss'}}</div>
         <div class="flip-wrapper">
             <div class="flip-container" ng-repeat="card in ctrl.cards" ng-class="{active: card.active, hover: card.hover} " ng-click="ctrl.toggleHover($index)">
                 <div class="flipper">
@@ -22,6 +23,9 @@
                 </a>    
                 <a class="next success" ng-click="ctrl.testCard(true)">
                     <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <a class="start primary" ng-click="ctrl.startTest()" ng-show="ctrl.clock.start == 0">
+                    START
                 </a>
             </div>
             <div class="dots">

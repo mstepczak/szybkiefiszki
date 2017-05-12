@@ -91,6 +91,7 @@ app.service('helpers', function() {
     } 
 });
 
+
 app.directive("fileread", [function () {
     return {
         scope: {
@@ -110,7 +111,8 @@ app.directive("fileread", [function () {
     }
 }]);
 
-app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notification) {
+app.controller('cardsCtrl', function($scope, $timeout, $interval, storage, helpers, Notification) {
+    
     var vm = this;
     vm.loader = true;
     vm.image = null;
@@ -118,6 +120,12 @@ app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notific
     vm.question = "";
     vm.answer = "";
     vm.history = [];
+    vm.clock = {
+        start: 0,
+        current: 0,
+        interval: 0
+    };
+    vm.tests = [];
     vm.cards = storage.getCards();
     vm.cardsTest = vm.cards;
     vm.currentCard = 0;
@@ -194,20 +202,8 @@ app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notific
             vm.cards[vm.currentCard].success = false;
         }
         vm.currentCard += 1;
-        if(vm.currentCard == vm.cards.length && success != undefined) {
-            var count = 0, countSuccess = 0;
-            vm.cards.forEach(function(item){
-                if(item.success == true) {
-                    countSuccess++;
-                } 
-                count++;
-                item.success = undefined;
-            });
-            vm.currentCard = 0;
-            vm.cards[vm.cards.length-1].active = false;
-            vm.cards[0].active = true;
-            
-            Notification.primary("Twój wynik to: " + countSuccess+"/"+ count);
+        if(vm.currentCard == vm.cards.length) {
+            vm.stopTest();
         } else {
             vm.cards[vm.currentCard-1].active=false;
             vm.cards[vm.currentCard-1].hover=false;
@@ -223,5 +219,32 @@ app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notific
     
     vm.startTest = function(){
         vm.changeCard(0);
+        vm.clock.start = Date.now();
+        vm.clock.current = Date.now();
+        vm.clock.interval = $interval(function(){
+            vm.clock.current = Date.now();
+        }, 1000);
+    };
+    
+    vm.stopTest = function(){
+        var count = 0, countSuccess = 0, result = [];
+        $interval.cancel(vm.clock.interval);
+        
+        vm.cards.forEach(function(item){
+            if(item.success == true) {
+                countSuccess++;
+            }
+            count++;
+            result.push(item.success);
+            item.success = undefined;
+        });
+        vm.tests.push(result);
+        vm.currentCard = 0;
+        vm.cards[vm.cards.length-1].active = false;
+        vm.cards[0].active = true;
+        
+        Notification.primary("Twój wynik to: " + countSuccess+"/"+ count +"<br/>"+"Twój czas to: "+new Date(vm.clock.current-vm.clock.start-3600000).toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"));
+        vm.clock.start = 0;
+        vm.clock.current = 0;
     };
 });
