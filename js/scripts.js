@@ -176,13 +176,25 @@ app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notific
         }
     };
     
-    vm.changeCard = function(index, success) {
+    vm.changeCard = function(index) {
+        if(index >= 0 && index < vm.cards.length) {
+            vm.cards[vm.currentCard].active=false;
+            vm.currentCard = index;
+            vm.cards[vm.currentCard].active=true;
+            vm.cards.forEach(function(item){
+               item.hover = false; 
+            });
+        }
+    };
+    
+    vm.testCard = function(success) {
         if(success == true) {
             vm.cards[vm.currentCard].success = true;
         } else if(success == false){
             vm.cards[vm.currentCard].success = false;
         }
-        if(index == vm.cards.length && success != undefined) {
+        vm.currentCard += 1;
+        if(vm.currentCard == vm.cards.length && success != undefined) {
             var count = 0, countSuccess = 0;
             vm.cards.forEach(function(item){
                 if(item.success == true) {
@@ -196,20 +208,15 @@ app.controller('cardsCtrl', function($scope, $timeout, storage, helpers, Notific
             vm.cards[0].active = true;
             
             Notification.primary("Twój wynik to: " + countSuccess+"/"+ count);
-        }
-        if(index >= 0 && index < vm.cards.length) {
-            vm.cards[vm.currentCard].active=false;
-            vm.currentCard = index;
+        } else {
+            vm.cards[vm.currentCard-1].active=false;
+            vm.cards[vm.currentCard-1].hover=false;
             vm.cards[vm.currentCard].active=true;
-            vm.cards.forEach(function(item){
-               item.hover = false; 
-            });
         }
-    };
+    }
     
     vm.syncCards = function() {
         if(storage.saveCards(vm.cards) && !vm.notiSuccess) {
-            
             Notification.success("Zapisano aktualny stan fiszek!");
         }
     };
