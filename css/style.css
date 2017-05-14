@@ -496,7 +496,10 @@ a[ng-click] {
 .flip-list .nav .start {
     position: absolute;
     left: 50%;
+    font-size: .94em;
+    font-weight: 900;
     width: 250px;
+    margin: 0;
     text-align: center;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);

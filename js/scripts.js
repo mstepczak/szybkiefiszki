@@ -133,14 +133,14 @@ app.controller('cardsCtrl', function($scope, $timeout, $interval, storage, helpe
     vm.saveHistory = function() {
         vm.history.push(JSON.stringify(vm.cards));
     };
+    vm.saveHistory();
     
     vm.backHistory = function(){
         if(vm.history.length > 0) {
             vm.cards = JSON.parse(vm.history[vm.history.length-2]);
             vm.history.splice(-1);
         }
-    };
-    vm.saveHistory();  
+    };  
     
     vm.toggleHover = function(index) {
         if(vm.cards[index].hover) {
@@ -217,7 +217,10 @@ app.controller('cardsCtrl', function($scope, $timeout, $interval, storage, helpe
         }
     };
     
+    
     vm.startTest = function(){
+        vm.cards[vm.currentCard].active=false;
+        vm.cards = helpers.shuffle(vm.cards);
         vm.changeCard(0);
         vm.clock.start = Date.now();
         vm.clock.current = Date.now();
